@@ -49,15 +49,16 @@
 		});
 	</script>
 	<style type="text/css">
-#line-chart {
-	height: 300px;
-	width: 800px;
-	margin: 0px auto;
-	margin-top: 1em;
-}
-.navbar-default .navbar-brand, .navbar-default .navbar-brand:hover {
-	color: #fff;
-}
+		#line-chart {
+			height: 300px;
+			width: 800px;
+			margin: 0px auto;
+			margin-top: 1em;
+		}
+		
+		.navbar-default .navbar-brand, .navbar-default .navbar-brand:hover {
+			color: #fff;
+		}
 </style>
 	<script type="text/javascript">
 		$(function() {
@@ -70,16 +71,6 @@
 	<!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-	<!-- Le fav and touch icons -->
-	<link rel="shortcut icon" href="../assets/ico/favicon.ico">
-	<link rel="apple-touch-icon-precomposed" sizes="144x144"
-		href="../assets/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114"
-		href="../assets/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72"
-		href="../assets/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed"
-		href="../assets/ico/apple-touch-icon-57-precomposed.png">
 	<!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
 	<!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
 	<!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
@@ -93,31 +84,48 @@
 	<!-- navbar end -->
 	<!-- sidebar-nav start -->
 	<div class="sidebar-nav">
-	<%@include file="sidebar.jsp"%> 
+		<%@include file="sidebar.jsp"%>
 	</div>
 	<!-- sidebar-nav end -->
 	<!-- content start -->
 	<div class="content">
 		<div class="header">
-	        <%@include file="content_header.jsp"%> 
+			<%@include file="content_header.jsp"%>
 		</div>
 		<div class="main-content">
-		    <%@include file="homeContent.jsp" %>
+			<%-- <%@include file="homeContent.jsp" %> --%>
+			<iframe name="mainframe" id="mainframe" width="100%" frameborder="0"
+				scrolling="no"></iframe>
 			<footer>
-				<%@include file="content_footer.jsp" %>
+				<%@include file="content_footer.jsp"%>
 			</footer>
 		</div>
 	</div>
 	<!-- content end -->
 	<script
 		src="<%=request.getContextPath()%>/themes/lib/bootstrap/js/bootstrap.js"></script>
-	<script type="text/javascript">
+	<!-- 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
 		$(function() {
 			$('.demo-cancel-click').click(function() {
 				return false;
 			});
 		});
+	</script> -->
+	<script type="text/javascript">
+		/* 高度自适应 */
+		function reinitIframe() {
+			var iframe = document.getElementById("mainframe");
+			try {
+				var bHeight = iframe.contentWindow.document.body.scrollHeight;
+				var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+				var height = Math.max(bHeight, dHeight);
+				iframe.height = height;
+				console.log(height);
+			} catch (ex) {
+			}
+		}
+		window.setInterval("reinitIframe()", 900);
 	</script>
 </body>
 </html>

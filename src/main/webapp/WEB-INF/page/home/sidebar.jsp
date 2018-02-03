@@ -11,7 +11,7 @@
 			data-toggle="collapse"><i class="fa fa-fw fa-dashboard"></i>
 				Dashboard<i class="fa fa-collapse"></i></a></li>
 		<li><ul class="dashboard-menu nav nav-list collapse in">
-				<li><a href="index.html"><span class="fa fa-caret-right"></span>
+				<li><a href="<%=request.getContextPath()%>/home/homeContent"   target="mainframe"><span class="fa fa-caret-right"></span>
 						Main</a></li>
 				<li><a href="users.html"><span class="fa fa-caret-right"></span>
 						User List</a></li>
