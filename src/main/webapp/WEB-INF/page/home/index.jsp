@@ -89,11 +89,7 @@
 	<!-- sidebar-nav end -->
 	<!-- content start -->
 	<div class="content">
-		<div class="header">
-			<%@include file="content_header.jsp"%>
-		</div>
 		<div class="main-content">
-			<%-- <%@include file="homeContent.jsp" %> --%>
 			<iframe name="mainframe" id="mainframe" width="100%" frameborder="0"
 				scrolling="no"></iframe>
 			<footer>

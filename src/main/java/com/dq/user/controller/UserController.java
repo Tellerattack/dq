@@ -28,8 +28,6 @@ public class UserController extends BaseController {
 	/** serialVersionUID */
 	private static final long serialVersionUID = 2704735478648253651L;
 	
-	
-
 	/**
 	 * 
 	 * @param model
