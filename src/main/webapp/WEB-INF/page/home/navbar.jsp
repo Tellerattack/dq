@@ -14,14 +14,14 @@
 		</button>
 		<a class="" href="<%=request.getContextPath()%>/logcon/loginIn"><span
 			class="navbar-brand"><span class="fa fa-paper-plane"></span>
-				Aircraft</span></a>
+				dq</span></a>
 	</div>
 	<div class="navbar-collapse collapse" style="height: 1px;">
 		<ul id="main-menu" class="nav navbar-nav navbar-right">
 			<li class="dropdown hidden-xs"><a href="#"
 				class="dropdown-toggle" data-toggle="dropdown"> <span
 					class="glyphicon glyphicon-user padding-right-small"
-					style="position: relative; top: 3px;"></span> Jack Smith <i
+					style="position: relative; top: 3px;"></span> Teller<i
 					class="fa fa-caret-down"></i></a>
 				<ul class="dropdown-menu">
 					<li><a href="./">My Account</a></li>
@@ -31,7 +31,7 @@
 					<li><a href="./">Security</a></li>
 					<li><a tabindex="-1" href="./">Payments</a></li>
 					<li class="divider"></li>
-					<li><a tabindex="-1" href="sign-in.html">Logout</a></li>
+					<li><a tabindex="-1" href="<%=request.getContextPath()%>/logcon/login">Logout</a></li>
 				</ul></li>
 		</ul>
 	</div>
