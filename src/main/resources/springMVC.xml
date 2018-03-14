@@ -13,16 +13,38 @@
                         http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
                         http://www.springframework.org/schema/tx 
                         http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-	<!-- 设置使用注解的类所在的jar包 -->
-	<mvc:annotation-driven/>
-	<context:component-scan
-		base-package="com.dq.*.controller,com.dq.*.service.*,com.dq.*.domain.dao.*" />
+                        
+	<mvc:annotation-driven/> 
+	<context:component-scan  base-package="com.dq.*.controller,com.dq.*.service.*,com.dq.*.domain.dao.*,com.dq.*.domain.dao" />
 	<!-- 静态资源(js/image)的访问 -->
      <mvc:resources location="/themes/" mapping="/themes/**" /> 
 	<!-- 配置SpringMVC的视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/page/" />
-		<property name="suffix" value=".jsp" />
+		<property name="suffix" value=".jsp" />	
+	<!-- 	
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+			</list>
+		</property> -->
 	</bean>
+	<!-- Simple strategy: only path extension is taken into account -->
+	<bean id="cnManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="true" />
+		<property name="favorParameter" value="false" />
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="defaultContentType" value="text/html" />
+
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html" />
+				<entry key="json" value="application/json" />
+				<entry key="xml" value="application/xml" />
+			</map>
+		</property>
+	</bean>
+	
 </beans>

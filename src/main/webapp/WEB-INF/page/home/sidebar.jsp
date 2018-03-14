@@ -15,8 +15,8 @@
 					target="mainframe"><span class="fa fa-caret-right"></span> 系统监控统计</a></li>
 				<li><a href="<%=request.getContextPath()%>/user/listUser" target="mainframe"><span
 						class="fa fa-caret-right"></span> 用户信息管理</a></li>
-				<li><a href="user.html"><span class="fa fa-caret-right"></span>
-						用户详细信息</a></li>
+				<li><a href="<%=request.getContextPath()%>/projectCate/listProjectCate"  target="mainframe"><span class="fa fa-caret-right"></span>
+						装修 管理</a></li>
 				<li><a href="media.html"><span class="fa fa-caret-right"></span>
 						媒体</a></li>
 				<li><a href="calendar.html"><span class="fa fa-caret-right"></span>

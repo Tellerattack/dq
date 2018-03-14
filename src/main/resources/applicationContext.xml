@@ -10,6 +10,12 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
+
+
+	<!-- spring扫描 注解 -->
+    <context:annotation-config /> 
+
+	<!-- 设置使用注解的类所在的jar包 -->
 	<!-- 引入配置文件 -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -46,9 +52,7 @@
 		<property name="poolPreparedStatements" value="true" />
 		<property name="maxPoolPreparedStatementPerConnectionSize"
 			value="20" />
-
 		<!-- 这里配置提交方式，默认就是TRUE，可以不用配置 -->
-
 		<property name="defaultAutoCommit" value="true" />
 
 		<!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
@@ -61,9 +65,75 @@
 		</property>
 	</bean>
 
+	<!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="dataSource" /> </bean> spring和MyBatis完美整合，不需要mybatis的配置映射文件 
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSource" /> 自动扫描mapping.xml文件 <property 
+		name="mapperLocations" value="com.dq.*.domain.dao.mapper/*.xml" /> </bean> 
+		DAO接口所在包名，Spring会自动查找其下的类 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> 
+		<property name="basePackage" value="com.dq.*.domain.dao" /> <property name="sqlSessionFactoryBeanName" 
+		value="sqlSessionFactory" /> </bean> -->
+
+	<!-- 配置注解实现管理事务（cglib：proxy-target-class="true"） -->
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+
+	<!-- 配置事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath*:com/**/*Mapper.xml</value>
+				<!-- <value>classpath*:sqlmap/*.xml</value> -->
+			</list>
+		</property>
+		<property name="plugins">
+			<list>
+				<bean
+					class="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
+					<property name="dialectClass"
+						value="com.github.miemiedev.mybatis.paginator.dialect.MySQLDialect"></property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.dq.*.domain.dao,com.dq.*.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED" read-only="false"
+				rollback-for="Exception" />
+			<tx:method name="save*" propagation="REQUIRED" read-only="false"
+				rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED" read-only="false"
+				rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false"
+				rollback-for="Exception" />
+			<tx:method name="list*" propagation="SUPPORTS" />
+			<tx:method name="find*" propagation="SUPPORTS" />
+			<tx:method name="get*" propagation="SUPPORTS" />
+			<tx:method name="select*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="interceptorPointCuts" expression="execution(* com.dq.*.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="interceptorPointCuts" />
+	</aop:config>
+
+
 	<bean id="logFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
 		<property name="statementExecutableSqlLogEnable" value="false" />
 	</bean>
-
 
 </beans>
